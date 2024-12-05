@@ -1,8 +1,8 @@
 import pika
 
 
-def callback(message):
-    message = message.decode()
+def callback(channel, method, properties, body):
+    message = body.decode()
     user, text = message.split("|", 1)
 
     if "bird-watching" in text or "ailurophobia" in text or "mango" in text:

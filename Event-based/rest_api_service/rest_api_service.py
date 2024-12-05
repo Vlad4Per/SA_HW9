@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import pika
+import time
 
 app = Flask(__name__)
 
@@ -18,8 +19,9 @@ def send_message():
         return jsonify({"error": "Invalid data"}), 400
 
     message = f"{data["user"]}|{data["message"]}"
+    print(f"Time (start): {time.time()}\n")
     send_to_queue("FilterQueue", message)
     return jsonify({"status": "Message sent to FilterQueue"}), 200
 
 if __name__ == "__main__":
-    app.run(port=5000)
+    app.run(port=5001)

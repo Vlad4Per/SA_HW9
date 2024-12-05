@@ -1,15 +1,16 @@
 import pika
 import smtplib
+import time
 from email.mime.text import MIMEText
 
-HOST = "smtp..."
-EMAIL_ADDRESS = ""
-EMAIL_PASSWORD = "" # APP PASSWORD
-ADDRESSEE = ""
+HOST = "" # Your HOST, e. g. smtp.bk.ru
+EMAIL_ADDRESS = "example@mail.com" # Your email
+EMAIL_PASSWORD = "passwd" # Your password
+ADDRESSEE = "example@mail.com" # Reciever email
 
 
-def callback(message):
-    message = message.decode()
+def callback(channel, method, properties, body):
+    message = body.decode()
     user, text = message.split("|", 1)
     print(f"Message received: {text}")
 
@@ -25,6 +26,7 @@ def callback(message):
         server.sendmail(EMAIL_ADDRESS, [to_email], message.as_string())
 
     print(f"Email sent for message: {text}")
+    print(f"Time (end): {time.time()}\n")
 
 connection = pika.BlockingConnection(pika.ConnectionParameters("localhost"))
 channel = connection.channel()

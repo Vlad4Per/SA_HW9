@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+import time
 
 
 def rest_api_service(queue):
@@ -10,6 +11,7 @@ def rest_api_service(queue):
         if 'message' not in request.json or 'user' not in request.json: return jsonify(
             {"error": "Invalid request"}), 400
         message = f"{request.json['user']}|{request.json['message']}"
+        print(f"Time (start): {time.time()}\n")
         queue.put(message)
         return jsonify({"status": "Message sent successfully"}), 200
 

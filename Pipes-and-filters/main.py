@@ -1,8 +1,8 @@
 from multiprocessing import Process, Queue
-from rest_api_service import rest_api_service
-from filter_service import filter_service
-from screaming_service import screaming_service
-from publish_service import publish_service
+from rest_api_service.rest_api_service import rest_api_service
+from filter_service.filter_service import filter_service
+from screaming_service.screaming_service import screaming_service
+from publish_service.publish_service import publish_service
 
 if __name__ == '__main__':
     # creating queues
